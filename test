@@ -1,0 +1,25 @@
+import logging
+import os
+from azure.identity import ManagedIdentityCredential
+from azure.mgmt.network import NetworkManagementClient
+
+app = func.FunctionApp()
+
+@app.schedule(schedule="0 30 15 * * *", arg_name="mytimer")
+def delete_bastion(mytimer: func.TimerRequest):
+    logging.info('Timer trigger function started.')
+
+    # Retrieve configuration values from environment variables
+    subscription_id = os.environ["SUBSCRIPTION_ID"]
+    resource_group_name = os.environ["RESOURCE_GROUP_NAME"]
+    bastion_host_name = os.environ["BASTION_HOST_NAME"]
+
+    # Use managed identity to authenticate
+    credential = ManagedIdentityCredential()
+    network_client = NetworkManagementClient(credential, subscription_id)
+
+    # Delete the Bastion host
+    async_delete = network_client.bastion_hosts.begin_delete(resource_group_name, bastion_host_name)
+    async_delete.wait()
+
+    logging.info(f"Bastion host {bastion_host_name} deletion initiated.")

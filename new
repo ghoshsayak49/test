@@ -1,0 +1,44 @@
+Create a strategy framework for SQL Migration. These are all the considerations
+
+Target Platform
+OnPremise Solutions - Yellobrick
+SAAS Solutions - Databricks, Snowflake
+Cloud PAAS Solutions - Cloud SQL, Azure SQL
+Cloud Managed Service Solutions - BigQuery, Redshift, Cloud Spanner
+Cloud IAAS Solutions - Database on VM Instance
+
+Technique
+Log Shipping (DB replication)
+Publisher Subscriber (DB replication)
+Backup and restore
+ETL Based Migration
+Schema Conversion
+Differential migration
+AWS Database Migration Service
+AWS Schema Conversion Tool
+Azure Database Migration Service 
+SQL Server Migration Assistant (SSMA)
+Google Database Migration Service
+Google Cloud SQL Import/Export
+Oracle Data Pump
+Oracle GoldenGate
+DbForge Studio
+Attunity Replicate
+Flayway
+
+
+Factors
+Criticality (low, medium, high)
+Size [low (size < 5TB), Medium (size < 10TB), High (size < 50TB), Very High (size < 100TB)]
+Number of connections [low (users < 1000 ), medium (users < 50000), high (users <100000), Very High (users > 100000)]
+Amount of writes [low (writes < 1000 reads/write per second), medium (users < 50000  reads/write per second), high (users <100000  reads/write per second), Very High (users > 100000  reads/write per second)]
+Effort (low, medium, high)
+Compatibility 
+Downtime appetite  [low (hours < 1 ), medium (hours < 6), high (users < 12), Very low (hours > .5)]
+Transactional Database - Yes/No
+User Base (Single Region, Multi-Region, Global)
+Dependency Mapping
+Costs
+
+
+The goal of the framework is to decide the migration type - Replatform, Rehost and Refactor based on the considerations 
